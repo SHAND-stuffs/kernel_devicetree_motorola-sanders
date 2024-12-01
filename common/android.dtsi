@@ -2,6 +2,7 @@
 	android {
 		fstab {
 			/delete-node/ vendor;
+			/delete-node/ system;
 		};
 	};
 };
