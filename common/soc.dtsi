@@ -2,6 +2,10 @@
 	restart@4ab000 {
 		qcom,force-warm-reboot;
 	};
+
+	qcom,lpm-levels {
+		qcom,use-psci;
+	};
 };
 
 &qcom_seecom {
