@@ -37,11 +37,6 @@
 	};
 };
 
-&sensor_information18 {
-	qcom,sensor-type = "adc";
-	qcom,sensor-name = "chg_therm";
-};
-
 &pm8953_vadc {
 	chan@11 {
 		label = "chg_therm";
