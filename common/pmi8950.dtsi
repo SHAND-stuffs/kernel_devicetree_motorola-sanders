@@ -2,3 +2,9 @@
 	/delete-property/ qcom,clamp-curr;
 	qcom,clamp-current = <200>;
 };
+
+#ifdef CONFIG_MSM_BCL_PERIPHERAL_CTL_LEGACY
+&bcl_sensor {
+	compatible = "qcom,msm-bcl-legacy";
+};
+#endif
