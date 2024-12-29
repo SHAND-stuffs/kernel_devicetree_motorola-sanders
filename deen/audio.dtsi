@@ -1,0 +1,92 @@
+&soc {
+	/delete-node/ hd3ss460;
+        /delete-node/ wsa881x_analog_vi_gpio;
+	/delete-node/ wsa881x_analog_clk_gpio;
+        /delete-node/ wsa881x_analog_reset_gpio;
+
+	sound {
+		status = "okay";
+		compatible = "qcom,msm8952-audio-codec";
+		qcom,model = "msm8953-snd-card";
+		qcom,msm-hs-micbias-type = "external";
+		qcom,msm-ext-pa = "quaternary";
+		qcom,msm-mbhc-hphl-swh = <1>;
+		qcom,msm-mbhc-gnd-swh = <1>;
+		qcom,msm-micbias2-ext-cap;
+
+		qcom,audio-routing =
+			"RX_BIAS", "MCLK",
+			"INT_LDO_H", "MCLK",
+			"MIC BIAS External", "Handset Mic",
+			"MIC BIAS External2", "Headset Mic",
+			"MIC BIAS External", "Secondary Mic",
+			"AMIC1", "MIC BIAS External",
+			"AMIC2", "MIC BIAS External2",
+			"AMIC3", "MIC BIAS External";
+
+		/delete-property/ asoc-wsa-codec-names;
+		/delete-property/ asoc-wsa-codec-prefixes;
+		/delete-property/ msm-vdd-wsa-switch-supply;
+		/delete-property/ qcom,msm-vdd-wsa-switch-voltage;
+		/delete-property/ qcom,msm-vdd-wsa-switch-current;
+		/delete-property/ qcom,hdmi-dba-codec-rx;
+		/delete-property/ qcom,cdc-us-euro-gpios;
+		/delete-property/ qcom,cdc-us-eu-gpios;
+		/delete-property/ pinctrl-4;
+		/delete-property/ pinctrl-5;
+		/delete-property/ pinctrl-6;
+		/delete-property/ pinctrl-7;
+		/delete-property/ pinctrl-8;
+		/delete-property/ pinctrl-9;
+		/delete-property/ pinctrl-10;
+		/delete-property/ pinctrl-11;
+		/delete-property/ pinctrl-12;
+		/delete-property/ pinctrl-13;
+		/delete-property/ pinctrl-14;
+		/delete-property/ pinctrl-15;
+	};
+
+	qcom,msm-dai-mi2s {
+		status = "okay";
+		dai_mi2s0: qcom,msm-dai-q6-mi2s-prim {
+			status = "okay";
+		};
+
+		dai_mi2s1: qcom,msm-dai-q6-mi2s-sec {
+			status = "okay";
+		};
+
+		dai_mi2s3: qcom,msm-dai-q6-mi2s-quat {
+			status = "okay";
+			/delete-property/ pinctrl-names;
+			/delete-property/ pinctrl-0;
+			/delete-property/ pinctrl-1;
+		};
+
+		dai_mi2s2: qcom,msm-dai-q6-mi2s-tert {
+			status = "okay";
+		};
+
+		dai_mi2s5: qcom,msm-dai-q6-mi2s-quin {
+			status = "okay";
+			/delete-property/ pinctrl-names;
+			/delete-property/ pinctrl-0;
+			/delete-property/ pinctrl-1;
+		};
+
+		dai_mi2s6: qcom,msm-dai-q6-mi2s-senary {
+			status = "okay";
+		};
+	};
+};
+
+&pm8953_diangu_dig{
+	qcom,cdc-micbias-cfilt-mv = <2750000>;
+};
+
+
+&slim_msm {
+	status = "disabled";
+	/delete-node/ tasha_codec;
+	/delete-node/ marley-codec;
+};

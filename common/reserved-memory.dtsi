@@ -1,3 +1,11 @@
+&other_ext_mem {
+	reg = <0x0 0x84300000 0x0 0x2500000>;
+};
+
+&qcom_seecom {
+	reg = <0x84300000 0x2000000>;
+};
+
 / {
 	reserved-memory {
 		ramoops_mem: ramoops_mem_region {
@@ -22,24 +30,4 @@
 			label = "wdog_cpuctx_mem";
 		};
 	};
-};
-
-&soc {
-	wdog: qcom,wdt@b017000 {
-		qcom,bark-time = <22000>;
-		linux,contiguous-region = <&wdog_cpuctx_mem>;
-	};
-
-	qcom_tzlog: tz-log@08600720 {
-		status = "okay";
-		linux,contiguous-region = <&tzlog_bck_mem>;
-	};
-};
-
-&other_ext_mem {
-	reg = <0x0 0x84300000 0x0 0x2500000>;
-};
-
-&qcom_seecom {
-	reg = <0x84300000 0x2000000>;
 };

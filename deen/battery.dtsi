@@ -1,0 +1,46 @@
+/{
+	/delete-node/ qcom,battery-data;
+	mot_batterydata: qcom,battery-data {
+		df-serialnum = "SB18C30735";
+		#include "batterydata/batterydata-je40-scud.dtsi"
+		#include "batterydata/batterydata-je40-atl.dtsi"
+	};
+};
+
+&qpnp_smbcharger {
+	/delete-property/ pinctrl-names;
+	/delete-property/ pinctrl-0;
+	/delete-property/ gpios;
+	/delete-property/ gpio-names;
+
+	qcom,max-usbin-current-ma = <3000>;
+	qcom,step-chg-steps = <4200 3000 2000>,
+				<4400 2000 1600>;
+	qcom,mmi-temp-zones = <0 582 0>,
+				<10 1460 582>,
+				<15 1460 1460>,
+				<45 3000 2000>,
+				<60 1460 0>;
+	qcom,auto-voltage-comp-mv = <150>;
+	qcom,prop-flash-active;
+	qcom,enable-charging-limit;
+	qcom,upper-limit-capacity = <75>;
+	qcom,lower-limit-capacity = <60>;
+	qcom,pd-charger-force-5v;
+	qcom,stepchg-iterm-ma = <146>;
+
+	smbcharger_charger_otg: qcom,smbcharger-boost-otg {
+		status = "okay";
+		regulator-name = "smbcharger_charger_otg";
+	};
+};
+
+&qpnp_fg {
+	/delete-property/ qcom,battery-data;
+	qcom,thermal-coefficients =  /bits/ 16 <0x2d87 0x9151 0x7d3c>;
+	qcom,irq-volt-empty-mv = <3000>;
+	qcom,fg-cutoff-voltage-mv = <3200>;
+	qcom,battery-data = <&mot_batterydata>;
+	qcom,cl-vbat-est-thr-uv = <300000>;
+	qcom,fg-force-restart-enable;
+};

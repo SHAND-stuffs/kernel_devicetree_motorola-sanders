@@ -1,0 +1,65 @@
+&soc {
+	i2c_1: i2c@78b5000 {
+		compatible = "qcom,i2c-msm-v2";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		reg-names = "qup_phys_addr";
+		reg = <0x78b5000 0x600>;
+		interrupt-names = "qup_irq";
+		interrupts = <0 95 0>;
+		dmas = <&dma_blsp1 4 64 0x20000020 0x20>,
+			<&dma_blsp1 5 32 0x20000020 0x20>;
+		dma-names = "tx", "rx";
+		qcom,master-id = <86>;
+		qcom,clk-freq-out = <400000>;
+		qcom,clk-freq-in  = <19200000>;
+		pinctrl-names = "i2c_active", "i2c_sleep";
+		pinctrl-0 = <&i2c_1_active>;
+		pinctrl-1 = <&i2c_1_sleep>;
+		qcom,noise-rjct-scl = <0>;
+		qcom,noise-rjct-sda = <0>;
+		clock-names = "iface_clk", "core_clk";
+		clocks = <&clock_gcc clk_gcc_blsp1_ahb_clk>,
+			 <&clock_gcc clk_gcc_blsp1_qup1_i2c_apps_clk>;
+
+		fusb302@22 {
+			compatible = "fairchild,fusb302";
+			reg = <0x22>;
+			gpios = <&tlmm 9 1>; /* FUSB302_INT_N, in */
+			fusb,gpio-labels = "gpio_fusb_int_n";
+			pinctrl-names = "default", "active";
+			pinctrl-0 = <&fusb302_int_default>;
+			pinctrl-1 = <&fusb302_int_active>;
+		};
+	};
+
+	qusb_phy: qusb@79000 {
+		qcom,qusb-phy-init-seq = <0xF8 0x80
+					0x97 0x84
+					0x83 0x88
+					0xC7 0x8C
+					0x14 0x9C
+					0x30 0x08
+					0x79 0x0C
+					0x21 0x10
+					0x00 0x90
+					0x9F 0x1C
+					0x00 0x18>;
+		/*Make sure QUSB PHY is into proper state to
+		  avoid interfering USB charger detection*/
+		mmi,enable-high-z-state;
+	};
+
+	usb_otg_switch: usb-otg-switch {
+		vin-supply = <&smbcharger_charger_otg>;
+		/delete-property/ gpio;
+	};
+
+	usb3: ssusb@7000000 {
+		extcon = <&qpnp_smbcharger>;
+		/delete-property/ pinctrl-names;
+		/delete-property/ pinctrl-0;
+		/delete-property/ qcom,otg-fault-gpio;
+		mmi,dcp-max-current = <2000>;
+	};
+};

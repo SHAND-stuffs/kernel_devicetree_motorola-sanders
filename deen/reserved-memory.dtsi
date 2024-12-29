@@ -1,0 +1,6 @@
+/ {
+	reserved-memory {
+		ramoops_mem: ramoops_mem_region {
+			reg = <0x0 0xef000000 0x0 0xC0000>;
+		};
+};

@@ -1,0 +1,9 @@
+&pm8953_l6 {
+	regulator-always-on;
+	regulator-boot-on;
+};
+
+&pm8953_l10 {
+	regulator-always-on;
+	regulator-boot-on;
+};

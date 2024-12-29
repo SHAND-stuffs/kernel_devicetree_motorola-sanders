@@ -10,6 +10,16 @@
 	qcom,lpm-levels {
 		qcom,use-psci;
 	};
+
+	wdog: qcom,wdt@b017000 {
+		qcom,bark-time = <22000>;
+		linux,contiguous-region = <&wdog_cpuctx_mem>;
+	};
+
+	qcom_tzlog: tz-log@08600720 {
+		status = "okay";
+		linux,contiguous-region = <&tzlog_bck_mem>;
+	};
 };
 
 &qcom_seecom {

@@ -1,0 +1,48 @@
+&soc {
+
+	muc: muc {
+		status = "disabled";
+		transports {
+			/delete-node/ i2c@78b5000;
+		};
+	};
+
+	spi_6: spi@7af6000 { /* BLSP2 QUP2 */
+		status = "disabled";
+	};
+
+	spi_8: spi@7af8000 { /* BLSP2 QUP3 */
+		status = "disabled";
+		/delete-node/ fpc_fpc1020@0;
+	};
+
+	i2c_4: i2c@78b8000 {
+		status = "disabled";
+		/delete-node/ motosh@43;
+	};
+
+	gpio_keys {
+		compatible = "gpio-keys";
+		label = "gpio-keys";
+		pinctrl-names = "default";
+		pinctrl-0 = <&gpio_key>;
+
+		vol_up {
+			label = "volume_up";
+			gpios = <&tlmm 85 0x1>;
+			linux,input-type = <1>;
+			linux,code = <115>;
+			gpio-key,wakeup;
+			debounce-interval = <15>;
+			linux,can-disable;
+		};
+	};
+
+	i2c_2: i2c@78b6000 { /* BLSP1 QUP2 */
+		/delete-node/ cs35l34@40;
+		/delete-node/ stmvl53l0@29;
+		/delete-node/ fusb302@22;
+		/delete-node/ pnxxx@28;
+		/delete-node/ usb3813@2D;
+	};
+};
